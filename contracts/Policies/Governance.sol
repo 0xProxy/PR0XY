@@ -68,7 +68,7 @@ contract Governance is Policy {
     require(REP.uniqueRepsOfId(proposerId) >= 5, "cannot submitProposal(): caller needs at least 5 unique reps to submit proposal");
     require(coauthors_.length > 0, "cannot submitProposal(): there needs to be at least one author of the proposal");
     for (uint256 i=0; i<coauthors_.length; i++) {
-      require(REP.scoreOfId(coauthors_[i]) > 300, "cannot submitProposal(): coauthors must have greater than 300 reputation");
+      require(REP.scoreOfId(coauthors_[i]) > 1500, "cannot submitProposal(): coauthors must have greater than 1500 reputation");
     }
 
     uint256 instructionsId = EXC.storeInstructions(instructions_);

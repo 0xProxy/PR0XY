@@ -58,7 +58,7 @@ contract ProxyDAO is Policy {
     uint8 decimals = IERC20Metadata(pmtCurrency_).decimals();
     
     // book the payment to the treasury
-    TSY.processPayment(msg.sender, pmtCurrency_, 100 * (10 ** decimals));
+    TSY.processPayment(msg.sender, pmtCurrency_, 5 * (10 ** decimals));
   }
 
   // Give reputation to a Proxy Id
@@ -71,20 +71,20 @@ contract ProxyDAO is Policy {
     require(fromMemberId != bytes2(0), "cannot giveReputation(): caller does not have registered wallet" );
     require(REP.walletOfId(toMemberId_) != address(0), "cannot giveReputation(): receiving ID must be associated with a registered wallet" );
     require(toMemberId_ != fromMemberId, "cannot giveReputation(): caller cannot give themselves reputation" );
-    require(newRepsGiven <= 200, "cannot giveReputation(): cannot exceed 200 reputation given per member" );
+    require(newRepsGiven <= 1000, "cannot giveReputation(): cannot exceed 1000 reputation given per member" );
 
     REP.transferReputation(fromMemberId, toMemberId_, amount_);
     repsGiven[fromMemberId][toMemberId_] = newRepsGiven;
 
     // increment the member's unique reputations if this is your the first time giving them reputation
-    if (prevRepsGiven < 100 && newRepsGiven >= 100 ) {
+    if (prevRepsGiven < 500 && newRepsGiven >= 500) {
       REP.incrementUniqueReps(toMemberId_);
     }
 
     // give the member a 100 rep bonus (50%) if the giver is capping their reputation
-    if (prevRepsGiven < 200 && newRepsGiven == 200 ) {
-      REP.increaseBudget(bytes2(0), 100);
-      REP.transferReputation(bytes2(0), toMemberId_, 100);
+    if (prevRepsGiven < 1000 && newRepsGiven == 1000 ) {
+      REP.increaseBudget(bytes2(0), 500);
+      REP.transferReputation(bytes2(0), toMemberId_, 500);
     }
 
   }
@@ -92,14 +92,14 @@ contract ProxyDAO is Policy {
 
   // Lock PROX for 15 vesting terms, get gPROX (Votes) and Reputation Budget in return.
   function lockTokens(uint256 amount_) external {
-    bytes2 fromMemberId = REP.getId( msg.sender );
+    bytes2 fromMemberId = REP.getId(msg.sender);
 
     require(fromMemberId != bytes2(0), "cannot lockTokens(): caller does not have a registered proxy Id");
 
     TKN.burn(msg.sender, amount_);
     VTP.resetVestingCredits(msg.sender);
     VTP.issue(msg.sender, amount_);
-    REP.increaseBudget(fromMemberId, amount_);
+    REP.increaseBudget(fromMemberId, amount_ / 1000);
   }
 
 

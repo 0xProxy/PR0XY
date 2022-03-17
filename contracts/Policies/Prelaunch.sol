@@ -86,7 +86,7 @@ contract Prelaunch is Policy {
     bytes2 memberId = REP.registerWallet( msg.sender );
 
     // seed the address with 100 reputation budget
-    REP.increaseBudget( memberId, 500 );
+    REP.increaseBudget( memberId, 3000 );
   }
 
   //
@@ -95,16 +95,16 @@ contract Prelaunch is Policy {
 
     require(memberId != bytes2(0), "cannot claimLaunchBonus(): caller does not have a Proxy ID");
     require(isClaimed[memberId] == false, "cannot claimLaunchSlot(): member has already claimed a slot");
-    require(REP.scoreOfId(memberId) >= 500, "cannot claimLaunchSlot(): member does not have the required reputation score");
+    require(REP.scoreOfId(memberId) >= 2500, "cannot claimLaunchSlot(): member does not have the required reputation score");
     require(REP.uniqueRepsOfId(memberId) >= 3, "cannot claimLaunchSlot(): member does not have the required uniqueReps");
     require(_proxy.isLaunched() == false, "cannot claimLaunchSlot(): project has already been launched");
 
     claimAddresses.push(msg.sender);
     isClaimed[memberId] = true;
 
-    if ( claimAddresses.length >= 3 ) {
-      for ( uint i = 0; i < 3; i++ ) {
-        TKN.mint( claimAddresses[i], 200e3 ); // mint each bonus reservation 200 PROX
+    if ( claimAddresses.length >= 5 ) {
+      for ( uint i = 0; i < 5; i++ ) {
+        TKN.mint( claimAddresses[i], 1000e3 ); // mint each bonus reservation 200 PROX
       }
 
       EXC.launchProxy();

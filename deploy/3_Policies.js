@@ -5,20 +5,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   
   const proxy = await deployments.get("Proxy");
 
-  const deployProxyDAOResult = await deploy("ProxyDAO", {
-    from: deployer,
-    args: [proxy.address],
-  });
-  if (deployProxyDAOResult.newlyDeployed) {
-    log(
-      `contract ProxyDAO deployed at ${deployProxyDAOResult.address} with args ${deployProxyDAOResult.args} using ${deployProxyDAOResult.receipt.gasUsed} gas`
-    );
-  } else {
-    log(
-      `using pre-existing contract ProxyDAO at ${deployProxyDAOResult.address}` 
-    )
-  }
-
 
   const deployPrelaunchResult = await deploy("Prelaunch", {
     from: deployer,
@@ -31,6 +17,20 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   } else {
     log(
       `using pre-existing contract Prelaunch at ${deployPrelaunchResult.address}` 
+    )
+  }
+
+  const deployProxyDAOResult = await deploy("ProxyDAO", {
+    from: deployer,
+    args: [proxy.address],
+  });
+  if (deployProxyDAOResult.newlyDeployed) {
+    log(
+      `contract ProxyDAO deployed at ${deployProxyDAOResult.address} with args ${deployProxyDAOResult.args} using ${deployProxyDAOResult.receipt.gasUsed} gas`
+    );
+  } else {
+    log(
+      `using pre-existing contract ProxyDAO at ${deployProxyDAOResult.address}` 
     )
   }
 
@@ -47,6 +47,21 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       `using pre-existing contract Token Sale at ${deployTokenSaleResult.address}` 
     )
   }
+};
+
+const deployGovernanceResult = await deploy("Governance", {
+  from: deployer,
+  args: [proxy.address],
+});
+if (deployGovernanceResult.newlyDeployed) {
+  log(
+    `contract Governance deployed at ${deployGovernanceResult.address} with args ${deployGovernanceResult.args} using ${deployGovernanceResult.receipt.gasUsed} gas`
+  );
+} else {
+  log(
+    `using pre-existing contract Governance at ${deployGovernanceResult.address}` 
+  )
+}
 };
 
 

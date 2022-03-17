@@ -91,17 +91,17 @@ contract TokenSale is Policy {
   function _getAllocationOf(address wallet_) internal view returns (uint256) {
     
     bytes2 proxyId = REP.getId(wallet_);
-    uint256 reputationAlloc = uint256(REP.scoreOfId(proxyId) / 10);
-    uint256 uniqueRepsAlloc = uint256(REP.uniqueRepsOfId(proxyId) * 30);
+    uint256 reputationAlloc = uint256(REP.scoreOfId(proxyId) / 4);
+    uint256 uniqueRepsAlloc = uint256(REP.uniqueRepsOfId(proxyId) * 375);
 
     require(proxyId != bytes2(0), "cannot find getAllocationOf(): caller is not a registered wallet");
 
-    if (reputationAlloc <= uniqueRepsAlloc && reputationAlloc < 2000) {
+    if (reputationAlloc <= uniqueRepsAlloc && reputationAlloc < 5000) {
       return reputationAlloc;
-    } else if (uniqueRepsAlloc < reputationAlloc && uniqueRepsAlloc < 2000) {
+    } else if (uniqueRepsAlloc < reputationAlloc && uniqueRepsAlloc < 5000) {
       return uniqueRepsAlloc;
     } else {
-      return 2000;
+      return 5000;
     }
   }
 }
