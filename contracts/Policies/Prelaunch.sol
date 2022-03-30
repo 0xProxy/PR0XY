@@ -8,6 +8,7 @@ import "../Systems/TKN.sol";
 import "../Systems/EXC.sol";
 import "../Systems/REP.sol";
 
+
 contract Prelaunch is Policy {
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -15,17 +16,14 @@ contract Prelaunch is Policy {
   ///////////////////////////////////////////////////////////////////////////////////
 
 
+  Reputation private REP;
+  Executive private EXC;
+  Token private TKN;
   address private _dev;
 
   constructor( Proxy proxy_ ) Policy( proxy_ ) {
     _dev = msg.sender;
   }
-  
-
-  Reputation private REP;
-  Executive private EXC;
-  Token private TKN;
-
 
   function configureSystems() external override{
     require(msg.sender == address(_proxy), "cannot configureSystems(): only the Proxy contract can configure systems");

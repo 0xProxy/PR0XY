@@ -18,7 +18,9 @@ contract Governance is Policy {
   Reputation private REP;
   VotingPower private VTP;
 
-  constructor(Proxy proxy_) Policy(proxy_) {
+  constructor( Proxy Proxy_ ) Policy( Proxy_ ) {}
+
+  function configureSystems() external override {
     EXC = Executive(requireSystem("EXC"));
     TKN = Token(requireSystem("TKN"));
     TSY = Treasury(requireSystem("TSY")); 

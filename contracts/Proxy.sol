@@ -85,7 +85,7 @@ contract Proxy{
   
 
   uint256 public startingEpochTimestamp; 
-  uint256 public constant epochLength = 60 * 60 * 24 * 7; // number of seconds in a week
+  uint256 public constant epochLength = 60 * 60 * 24; // number of seconds in a week
   bool public isLaunched;
 
 

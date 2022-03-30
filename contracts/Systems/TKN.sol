@@ -12,7 +12,7 @@ contract Token is System, IERC20 {
   //////////////////////////////////////////////////////////////////////////////
 
   // @NOTE consider making these constant, reduce read cost
-  string public name = "PROXY Token";
+  string public name = "PR0XY Token";
   string public symbol = "PROX";
   uint8 public decimals = 3;
 

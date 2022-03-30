@@ -47,21 +47,22 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       `using pre-existing contract Token Sale at ${deployTokenSaleResult.address}` 
     )
   }
-};
 
-const deployGovernanceResult = await deploy("Governance", {
-  from: deployer,
-  args: [proxy.address],
-});
-if (deployGovernanceResult.newlyDeployed) {
-  log(
-    `contract Governance deployed at ${deployGovernanceResult.address} with args ${deployGovernanceResult.args} using ${deployGovernanceResult.receipt.gasUsed} gas`
-  );
-} else {
-  log(
-    `using pre-existing contract Governance at ${deployGovernanceResult.address}` 
-  )
-}
+
+  const deployGovernanceResult = await deploy("Governance", {
+    from: deployer,
+    args: [proxy.address],
+    gasLimit: 4_000_000,
+  });
+  if (deployGovernanceResult.newlyDeployed) {
+    log(
+      `contract Governance deployed at ${deployGovernanceResult.address} with args ${deployGovernanceResult.args} using ${deployGovernanceResult.receipt.gasUsed} gas`
+    );
+  } else {
+    log(
+      `using pre-existing contract Governance at ${deployGovernanceResult.address}` 
+    )
+  }
 };
 
 

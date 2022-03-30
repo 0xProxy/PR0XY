@@ -18,13 +18,12 @@ import '../Systems/VTP.sol';
 
 contract TokenSale is Policy { 
 
-  constructor(Proxy Proxy_) Policy(Proxy_) {}
-
 
   Token private TKN;
   Treasury private TSY;
   Reputation private REP;
 
+  constructor(Proxy Proxy_) Policy(Proxy_) {}
 
   function configureSystems() external override {
       require(msg.sender == address(_proxy), "cannot configureSystems(): only the Proxy contract can configure systems");

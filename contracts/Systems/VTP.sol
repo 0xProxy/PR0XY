@@ -52,7 +52,7 @@ contract VotingPower is System, IERC20 {
   /////////////////////////////////////////////////////////////////////////////////
 
 
-  string public name = "PROXY Voting Power";
+  string public name = "PR0XY Voting Power";
   string public symbol = "vePROX";
   uint8 public decimals = 3;
 

@@ -15,14 +15,13 @@ contract ProxyDAO is Policy {
   //                              PR0XY Proxy CONFIG                               //
   ///////////////////////////////////////////////////////////////////////////////////
 
-  constructor( Proxy Proxy_ ) Policy( Proxy_ ) {}
-
 
   Token private TKN;
   VotingPower private VTP;
   Reputation private REP;
   Treasury private TSY;
 
+  constructor( Proxy Proxy_ ) Policy( Proxy_ ) {}
 
   function configureSystems() external override {
     require(msg.sender == address(_proxy), "cannot configureSystems(): only the Proxy contract can configure systems");
